@@ -1,3 +1,8 @@
 spring:
   application:
-    name: eureka-client-user
+    name: eureka-client
+#  cloud:
+#    config:
+#      #指向配置中心地址
+#      uri: http://localhost:8888/
+#      profile: dev

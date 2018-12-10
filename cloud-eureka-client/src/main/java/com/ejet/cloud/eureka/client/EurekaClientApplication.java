@@ -14,9 +14,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * History:
  * Version: 1.0
  */
+@EnableEurekaClient
 @SpringBootApplication
-// @EnableEurekaClient
-@EnableDiscoveryClient
 public class EurekaClientApplication {
 
     /**
@@ -29,3 +28,4 @@ public class EurekaClientApplication {
 
 
 }
+

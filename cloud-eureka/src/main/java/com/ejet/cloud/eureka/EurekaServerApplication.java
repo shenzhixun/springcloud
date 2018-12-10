@@ -13,11 +13,12 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  * History:
  * Version: 1.0
  */
-@SpringBootApplication
 @EnableEurekaServer
+@SpringBootApplication
 public class EurekaServerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EurekaServerApplication.class, args);
     }
 }
+

@@ -10,6 +10,8 @@ spring:
       password: admin
 
 
+
+
 server:
   #指定服务端口
   port: 9999
@@ -17,22 +19,39 @@ server:
 eureka:
   #指定主机名称
   instance:
-    hostname: eureka-server1
-    #server一定程度上也是client，互为client，
+    hostname: localhost
+    ip-address: 127.0.0.1
+    #以IP地址注册到服务中心，相互注册使用IP地址
+    prefer-ip-address: true
   client:
     # 由于自己就是服务器，不需要注册到自己
     register-with-eureka: false
+#    registerWithEureka: false
     # 由于自己就是服务器，不需要从服务器获取注册信息
     fetch-registry: false
-    # eureka服务器的地址（注意：地址最后面的 /eureka/ 这个是固定值）
-    service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.ip-address}:${server.port}/eureka/
+    # 针对新服务上线, Eureka client获取不及时的问题，在测试环境，可以适当提高Client端拉取Server注册信息的频率，默认：30秒
+    registry-fetch-interval-seconds: 5
   server:
     ##我保护模式关闭
+    # 是否开启自我保护机制
+    ## 在分布式系统设计里头，通常需要对应用实例的存活进行健康检查，这里比较关键的问题就是要处理好网络偶尔抖动或短暂不可用时造成的误判。另外Eureka Server端与Client端之间如果出现网络分区问题，在极端情况下可能会使得Eureka Server清空部分服务的实例列表，这个将严重影响到Eureka server的 availibility属性。因此Eureka server引入了SELF PRESERVATION机制。
+    ## Eureka client端与Server端之间有个租约，Client要定时发送心跳来维持这个租约，表示自己还存活着。 Eureka通过当前注册的实例数，去计算每分钟应该从应用实例接收到的心跳数，如果最近一分钟接收到的续约的次数小于指定阈值的话，则关闭租约失效剔除，禁止定时任务剔除失效的实例，从而保护注册信息。
+    # 此处关闭可以防止问题（测试环境可以设置为false）：Eureka server由于开启并引入了SELF PRESERVATION模式，导致registry的信息不会因为过期而被剔除掉，直到退出SELF PRESERVATION模式才能剔除。
     enable-self-preservation: false
     #设置清理无效节点的时间间隔，默认60000，即是60s
-    eviction-interval-timer-in-ms: 10000
-
+    # 指定 Eviction Task 定时任务的调度频率，用于剔除过期的实例，此处未使用默认频率，频率为：5/秒，默认为：60/秒
+    # 有效防止的问题是：应用实例异常挂掉，没能在挂掉之前告知Eureka server要下线掉该服务实例信息。这个就需要依赖Eureka server的EvictionTask去剔除。
+    eviction-interval-timer-in-ms: 5000
+    renewal-percent-threshold: 0.49
+    #应用实例下线时有告知 Eureka Server 下线，但是由于 Eureka Server 的 REST API 有 response cache，因此需要等待缓存过期才能更新。
+    # 此处不开启缓存或者调整 readWriteCacheMap 的过期时间：
+    use-read-only-response-cache: false
+    # 设置read Write CacheMap的expire After Write参数，指定写入多长时间后过期
+    # 有效防止的问题是：应用实例下线时有告知Eureka server下线，但是由于Eureka server的REST API有response cache，因此需要等待缓存过期才能更新
+    #response-cache-auto-expiration-in-seconds: 60
 
 
 

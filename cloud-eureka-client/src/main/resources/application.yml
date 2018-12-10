@@ -1,18 +1,29 @@
 ####### eureka客户端 ##########
 server:
-  port: 8001
+  port: 8881
 
 eureka:
+  instance:
+#    hostname: localhost
+    #以IP地址注册到服务中心
+    #prefer-ip-address: true
+    # 是否优先使用ip地址来代替hostname作为hostname字段值
+    #ip-address: 127.0.0.1
+    lease-renewal-interval-in-seconds: 60
+
   client:
-    enabled: true
-    register-with-eureka: true
-    fetch-registry: true
-    service-url: http://admin:admin@localhost:9999/eureka  #注册 中心已经开启认证
-#
-#  instance:
-#    prefer-ip-address: true
-#    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-#    status-page-url:
-#    health-check-url: ${server.servlet}
+    service-url:
+      defaultZone: http://admin:admin@127.0.0.1:9999/eureka/
+      #defaultZone: http://127.0.0.1:9999/eureka/
+#    # 假设指定region为江苏
+#    region: js
+#    availability-zones:
+#    #假设江苏下面有南京的两个region
+#      js : nj1
+#    service-url:
+#      nj1: http://admin:admin@127.0.0.1:9999/eureka/  #注册 中心已经开启认证
+#      #nj2: http://admin:admin@192.168.0.244:9998/eureka  #注册 中心已经开启认证
+#    register-with-eureka: true
+#    fetch-registry: true
 
 
