@@ -1,0 +1,18 @@
+####### eureka客户端 ##########
+server:
+  port: 8001
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url: http://admin:admin@localhost:9999/eureka  #注册 中心已经开启认证
+#
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+#    status-page-url:
+#    health-check-url: ${server.servlet}
+
+
