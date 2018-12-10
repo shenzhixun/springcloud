@@ -1,0 +1,39 @@
+####### 注册中心eureka-server1 ##########
+
+## server (eureka 默认端口为：8761)
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: admin
+      password: admin
+
+
+server:
+  #指定服务端口
+  port: 9998
+
+eureka:
+  #指定主机名称
+  instance:
+    hostname: eureka-server2
+    #server一定程度上也是client，互为client，
+  client:
+    # 由于自己就是服务器，不需要注册到自己
+    register-with-eureka: false
+    # 由于自己就是服务器，不需要从服务器获取注册信息
+    fetch-registry: false
+    # eureka服务器的地址（注意：地址最后面的 /eureka/ 这个是固定值）
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    ##我保护模式关闭
+    enable-self-preservation: false
+    #设置清理无效节点的时间间隔，默认60000，即是60s
+    eviction-interval-timer-in-ms: 10000
+
+
+
+
+
