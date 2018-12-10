@@ -13,8 +13,8 @@ Spring Cloud 是基于 Spring Cloud Finchley 的一个分布式系统套件的�
 
 ## 子项目介绍
 
-* 服务治理：cloud-eureka ： <http://127.0.0.1:8970>
-* 配置中心：cloud-config ： <http://127.0.0.1:8971/project/default>
+* 服务治理：cloud-eureka ： <http://127.0.0.1:9999/eureka>
+* 配置中心：cloud-config ： <http://127.0.0.1:9900/project/default>
 * 网关路由：cloud-gateway ： <http://127.0.0.1:8980/js/a/login>
 * 基础项目：cloud-module-base ： <http://127.0.0.1:8981/js>
 * 测试模块1：
