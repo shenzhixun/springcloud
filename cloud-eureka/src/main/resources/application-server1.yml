@@ -1,5 +1,4 @@
 ####### 注册中心eureka-server1 ##########
-
 ## server (eureka 默认端口为：8761)
 spring:
   application:
@@ -19,10 +18,14 @@ server:
 eureka:
   #指定主机名称
   instance:
-    hostname: localhost
-    ip-address: 127.0.0.1
+    hostname: server1
+    ip-address: 192.168.0.244
     #以IP地址注册到服务中心，相互注册使用IP地址
     prefer-ip-address: true
+    # 租期更新时间间隔（默认30秒）
+    lease-renewal-interval-in-seconds: 10
+    # 租期到期时间（默认90秒）
+    lease-expiration-duration-in-seconds: 15
   client:
     # 由于自己就是服务器，不需要注册到自己
     register-with-eureka: false
@@ -34,6 +37,7 @@ eureka:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.ip-address}:${server.port}/eureka/
     # 针对新服务上线, Eureka client获取不及时的问题，在测试环境，可以适当提高Client端拉取Server注册信息的频率，默认：30秒
     registry-fetch-interval-seconds: 5
+
   server:
     ##我保护模式关闭
     # 是否开启自我保护机制
