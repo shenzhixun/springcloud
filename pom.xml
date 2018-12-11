@@ -13,6 +13,7 @@
         <module>cloud-eureka</module>
         <module>cloud-zuul</module>
         <module>cloud-eureka-client</module>
+        <module>cloud-hystrix</module>
     </modules>
     <packaging>pom</packaging>
 
