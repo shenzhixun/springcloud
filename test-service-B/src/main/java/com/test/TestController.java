@@ -1,4 +1,4 @@
-package com.ejet.cloud.eureka.client;
+package com.test;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    String msg = " Welcome . My is microservice provider user AAA";
+    String msg = " Welcome . My is microservice provider user B";
 
     @RequestMapping("/test")
     public String home() {

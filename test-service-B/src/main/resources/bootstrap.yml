@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eureka-client-server
+    name: eureka-client-serverB
 #  cloud:
 #    config:
 #      #指向配置中心地址

@@ -1,0 +1,32 @@
+####### eureka客户端 ##########
+server:
+  port: 8882
+
+eureka:
+  instance:
+#    hostname: localhost
+    #以IP地址注册到服务中心
+    #prefer-ip-address: true
+    # 是否优先使用ip地址来代替hostname作为hostname字段值
+    #ip-address: 127.0.0.1
+    # 租期更新时间间隔（默认30秒）
+    lease-renewal-interval-in-seconds: 10
+    # 租期到期时间（默认90秒）
+    lease-expiration-duration-in-seconds: 20
+
+  client:
+#    service-url:
+#      defaultZone: http://admin:admin@192.168.0.244:9999/eureka/
+    # 假设指定region为江苏
+    region: js
+    availability-zones:
+    #假设江苏下面有南京的两个region
+      js : nj1, nj2
+    service-url:
+      nj1: http://admin:admin@192.168.0.244:9999/eureka/  #注册 中心已经开启认证
+      nj2: http://admin:admin@192.168.0.244:9998/eureka/  #注册 中心已经开启认证
+    register-with-eureka: true
+    fetch-registry: true
+
+
+

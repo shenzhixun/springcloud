@@ -15,6 +15,7 @@
         <module>cloud-eureka-client</module>
         <module>cloud-hystrix</module>
         <module>demo</module>
+        <module>test-service-B</module>
     </modules>
     <packaging>pom</packaging>
 
